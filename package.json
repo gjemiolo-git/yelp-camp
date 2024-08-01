@@ -1,0 +1,17 @@
+{
+  "name": "1.-yelpcamp",
+  "version": "1.0.0",
+  "description": "01/08\r Document to trace updates and timeline of them",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2"
+  }
+}
