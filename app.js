@@ -6,6 +6,8 @@ const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const path = require('path');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
 // Utils
 const ExpressError = require('./utils/ExpressError');
@@ -14,6 +16,10 @@ const wrapAsync = require('./utils/wrapAsync');
 // Routes
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
+const users = require('./routes/users');
+
+const User = require('./models/user');
+
 
 // DB
 mongoose.connect('mongodb://localhost:27017/yelp-camp');
@@ -45,7 +51,16 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
@@ -53,10 +68,12 @@ app.use((req, res, next) => {
 
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
+app.use('/', users);
 
 app.get('/', (req, res) => {
     res.render('home');
 })
+
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page not found!', 404));
