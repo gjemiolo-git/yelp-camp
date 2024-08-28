@@ -3,26 +3,20 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 
 // Utils
-const ExpressError = require('../utils/ExpressError');
 const wrapAsync = require('../utils/wrapAsync');
 
 // Models and Schemas
 const Campground = require('../models/campground');
 const Review = require('../models/review');
-const { reviewSchema } = require('../schemas.js');
 
-const validateReview = (req, res, next) => {
-    const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400);
-    }
-    next();
-}
+const { validateReview, isLoggedIn, isReviewAuthor } = require('../middleware.js');
 
-router.post('/', validateReview, wrapAsync(async (req, res) => {
+
+
+router.post('/', isLoggedIn, validateReview, wrapAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
+    review.author = req.user._id;
     campground.reviews.push(review);
     await review.save();
     await campground.save();
@@ -30,7 +24,7 @@ router.post('/', validateReview, wrapAsync(async (req, res) => {
     res.redirect(`/campgrounds/${campground._id}`);
 }))
 
-router.delete('/:rid', wrapAsync(async (req, res) => {
+router.delete('/:rid', isLoggedIn, isReviewAuthor, wrapAsync(async (req, res) => {
     const { id, rid } = req.params;
     //const campground = await Campground.findById(id);
     // campground.reviews.filter(x => x == rid).pop();

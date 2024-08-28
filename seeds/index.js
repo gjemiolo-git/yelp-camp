@@ -27,7 +27,8 @@ Ad obcaecati ex deleniti nesciunt, fugit maiores pariatur similique quis impedit
 Optio libero soluta repellendus distinctio ducimus quod dolorum voluptatibus sed, amet, voluptatem nemo veniam commodi sit. Ad quod maiores eligendi ullam nemo voluptas, nisi, optio quasi molestiae earum eveniet autem?
 Soluta, voluptatum qui! Alias natus quod a nam omnis laborum corporis quos accusamus quas tempore! Aperiam repudiandae provident a, praesentium odio optio nulla, accusantium harum maxime corporis ex quod? Nemo!
 Cum odio corporis facilis maiores, nobis quisquam officiis totam. Quaerat possimus quia, eius asperiores fugiat harum consequuntur praesentium laboriosam ex, atque esse sunt, labore adipisci nulla officia. Ducimus, sed natus!`,
-            price
+            price,
+            author: '66cda3724f12089930ee7dc0'
         })
         await camp.save();
     }

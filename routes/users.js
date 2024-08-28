@@ -12,7 +12,7 @@ router.get('/register', (req, res) => {
     res.render('users/register');
 })
 
-router.get('/login', (req, res) => {
+router.get('/login', storeReturnTo, (req, res) => {
     res.render('users/login');
 })
 
@@ -24,13 +24,14 @@ router.post('/login', storeReturnTo,
         res.redirect(redirectUrl);
     }))
 
-router.get('/logout', (req, res) => {
+router.get('/logout', storeReturnTo, (req, res) => {
     req.logout(function (err) {
         if (err) {
             return next(err);
         }
         req.flash('success', 'Goodbye!');
-        res.redirect('/campgrounds');
+        const redirectUrl = res.locals.returnTo || '/campgrounds';
+        res.redirect(redirectUrl);
     });
 })
 
