@@ -6,9 +6,10 @@
     const forms = document.querySelectorAll('.validated-form')
 
     // Loop over them and prevent submission
+    //, 'focusin'
     Array.from(forms)
         .forEach(function (form) {
-            ['submit', 'focusin'].forEach((e) => {
+            ['submit'].forEach((e) => {
                 form.addEventListener(e, function (event) {
                     if (!form.checkValidity()) {
                         event.preventDefault()
