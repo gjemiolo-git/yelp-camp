@@ -1,7 +1,7 @@
 maptilersdk.config.apiKey = maptilerApiKey;
 
 const map = new maptilersdk.Map({
-    container: 'map',
+    container: 'clusterMap',
     style: maptilersdk.MapStyle.BRIGHT,
     center: [-103.59179687498357, 40.66995747013945],
     zoom: 3
@@ -30,7 +30,7 @@ map.on('load', function () {
                 '#00BCD4',
                 10,
                 '#2196F3',
-                30,
+                20,
                 '#3F51B5'
             ],
             'circle-radius': [
@@ -64,8 +64,8 @@ map.on('load', function () {
         filter: ['!', ['has', 'point_count']],
         paint: {
             'circle-color': '#11b4da',
-            'circle-radius': 4,
-            'circle-stroke-width': 1,
+            'circle-radius': 10,
+            'circle-stroke-width': 2,
             'circle-stroke-color': '#fff'
         }
     });
@@ -88,8 +88,8 @@ map.on('load', function () {
     // the location of the feature, with
     // description HTML from its properties.
     map.on('click', 'unclustered-point', function (e) {
-        const { popUpMarkup } = e.features[0].properties;
         const coordinates = e.features[0].geometry.coordinates.slice();
+        const { popUpMarkup } = e.features[0].properties;
 
         // Ensure that if the map is zoomed out such that
         // multiple copies of the feature are visible, the
