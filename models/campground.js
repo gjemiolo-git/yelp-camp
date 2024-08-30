@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('./review');
+const { cloudinary } = require('../cloudinary');
 
 const ImageSchema = new Schema({
     url: String,
@@ -10,6 +11,17 @@ const ImageSchema = new Schema({
 const CampgroundSchema = new Schema({
     title: String,
     images: [ImageSchema],
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
     price: Number,
     description: String,
     location: String,
@@ -35,6 +47,9 @@ CampgroundSchema.post('findOneAndDelete', async function (doc) {
             _id: {
                 $in: doc.reviews
             }
+        })
+        doc.images.forEach(async (x) => {
+            await cloudinary.uploader.destroy(x.filename);
         })
     }
 })
