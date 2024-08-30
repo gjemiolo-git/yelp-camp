@@ -21,7 +21,20 @@ const seedDB = async () => {
         const camp = new Campground({
             title: `${sample(descriptors)} ${sample(places)}`,
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            imgSource: `https://picsum.photos/400?random=${Math.random()}`,
+            images: [
+                {
+                    url: `https://picsum.photos/400?random=${Math.random()}`,
+                    filename: 'name'
+                },
+                {
+                    url: `https://picsum.photos/400?random=${Math.random()}`,
+                    filename: 'name'
+                },
+                {
+                    url: `https://picsum.photos/400?random=${Math.random()}`,
+                    filename: 'name'
+                }
+            ],
             description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis facere quae quibusdam magni modi nihil amet cumque fugit eaque fuga accusantium dicta temporibus assumenda sequi recusandae, voluptate dolor, placeat consequuntur!
 Ad obcaecati ex deleniti nesciunt, fugit maiores pariatur similique quis impedit adipisci culpa tenetur provident aspernatur optio delectus molestias ratione, sapiente explicabo earum quisquam voluptate! Architecto ad asperiores mollitia ipsam.
 Optio libero soluta repellendus distinctio ducimus quod dolorum voluptatibus sed, amet, voluptatem nemo veniam commodi sit. Ad quod maiores eligendi ullam nemo voluptas, nisi, optio quasi molestiae earum eveniet autem?
@@ -33,8 +46,6 @@ Cum odio corporis facilis maiores, nobis quisquam officiis totam. Quaerat possim
         await camp.save();
     }
 
-    const c = new Campground({ title: 'purple field2' });
-    await c.save();
     console.log("New campground saved");
 }
 
