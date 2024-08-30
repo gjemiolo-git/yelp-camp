@@ -3,7 +3,7 @@
 <div class="row">
   <h1 class="text-center">New Campground</h1>
   <div class="col-6 offset-3">
-    <form class="validated-form" action="/campgrounds" method="POST" novalidate>
+    <form class="validated-form" action="/campgrounds" method="POST" enctype="multipart/form-data" novalidate>
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
         <input class="form-control" type="text" id="title" name="campground[title]" required>
@@ -25,16 +25,6 @@
         </div>
       </div>
       <div class="mb-3">
-        <label class="form-label" for="image">Image URL</label>
-        <input class="form-control" type="text" id="image" name="campground[imgSource]" required>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-        <div class="invalid-feedback">
-          Please provide url!
-        </div>
-      </div>
-      <div class="mb-3">
         <label class="form-label" for="price">Campground Price</label>
         <div class="input-group mb-3">
           <span class="input-group-text" id="price-label">£</span>
@@ -47,7 +37,6 @@
           </div>
         </div>
       </div>
-
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
         <textarea class="form-control" type="text" id="description" name="campground[description]" required></textarea>
@@ -56,6 +45,16 @@
         </div>
         <div class="invalid-feedback">
           Please provide description!
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="images">Upload Images</label>
+        <div class="form-file custom-file">
+          <input class="form-file-input" type="file" id="images" name="images" multiple>
+          <label for="images" class="form-file-label">
+            <span class="form-file-text custom-file-label">Choose image(s)...</span>
+            <span class="form-file-button">Browse</span>
+          </label>
         </div>
       </div>
       <div class="mb-3">
