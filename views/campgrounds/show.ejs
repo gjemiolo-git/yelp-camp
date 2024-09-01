@@ -47,6 +47,9 @@
   </div>
 
   <div class="col-8 col-xl-6">
+    <div class="mb-3" id="map">
+
+    </div>
     <% if (currentUser) { %>
     <h2 class="mb-3">Leave a Review</h2>
     <form class="mb-3 validated-form" action="/campgrounds/<%=campground._id%>/reviews" method="POST" novalidate>
@@ -75,6 +78,10 @@
       <button class="btn btn-success">Submit</button>
     </form>
     <% } %>
+    <h2 class="mb-3">Reviews:</h2>
+    <% if(campground.reviews.length === 0){%>
+    <p class="text-muted">No reviews, yet!</p>
+    <% } %>
     <% for (let review of campground.reviews) { %>
     <div class="card mb-3">
       <div class="card-body">
@@ -97,3 +104,10 @@
     <% } %>
   </div>
 </div>
+
+<script>
+  const maptilerApiKey = '<%-process.env.MAP_API_KEY%>';
+  const campground = <%- JSON.stringify(campground) %>;
+</script>
+
+<script src="/javascripts/showPageMap.js"></script>
