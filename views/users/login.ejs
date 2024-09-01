@@ -1,32 +1,40 @@
 <% layout('/layouts/boilerplate') %>
 
-<div class="row">
-  <div class="col-6 offset-3">
-    <h1>Login</h1>
-    <form class="validated-form" action="/login" method="post" novalidate>
-      <div class="mb-3">
-        <label class="form-label" for="username">Username</label>
-        <input class="form-control" type="text" name="username" id="username" placeholder="Username" autocomplete="off" required>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-        <div class="invalid-feedback">
-          Please provide username!
-        </div>
-      </div>
+<div class="containter d-flex justify-content-center align-items-center mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+      <div class="card shadow mb-3">
+        <img src="https://images.pexels.com/photos/27050428/pexels-photo-27050428/free-photo-of-people-on-camping-on-tropical-sea-shore.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">Login</h5>
+          <form class="validated-form" action="/login" method="post" novalidate>
 
-      <div class="mb-3">
-        <label class="form-label" for="password">Password</label>
-        <input class="form-control" type="password" name="password" id="password" placeholder="Password" autocomplete="off" required>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-        <div class="invalid-feedback">
-          Please provide password!
+            <div class="mb-3">
+              <label class="form-label" for="username">Username</label>
+              <input class="form-control" type="text" name="username" id="username" placeholder="Username" autocomplete="off" autofocus required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide username!
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="password">Password</label>
+              <input class="form-control" type="password" name="password" id="password" placeholder="Password" autocomplete="off" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide password!
+              </div>
+            </div>
+            <button class="btn btn-sm btn-success btn-block">Login</button>
+          </form>
+          <p class="text-muted mt-3 mb-0 text-center">Don't have an account ? <a href="/register">Sign up!</a></p>
         </div>
       </div>
-      <button class="btn btn-sm btn-success">Login</button>
-    </form>
+    </div>
   </div>
-
 </div>

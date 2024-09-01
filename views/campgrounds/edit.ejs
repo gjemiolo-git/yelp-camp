@@ -3,7 +3,7 @@
 <div class="row">
   <h1 class="text-center">Edit Campground</h1>
   <form class="validated-form" action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST" enctype="multipart/form-data" novalidate>
-    <div class="col-6 offset-3">
+    <div class="col-md-6 offset-md-3 ">
       <form action="/campgrounds" method="POST">
         <div class="mb-3">
           <label class="form-label" for="title">Title</label>
@@ -59,7 +59,7 @@
             </label>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 vw-70">
           <% campground.images.forEach(function(img, i) { %>
           <img src="<%=img.thumbnail%>" class="img-thumbnail">
           <div class="form-check-inline">
