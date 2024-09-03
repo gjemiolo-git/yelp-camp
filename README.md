@@ -9,7 +9,6 @@
 -    Asynchronous JavaScript - Promises, async/await, etc.
 -    AJAX and single page apps
 -    Bootstrap 4 and 5
--    ReactJS
 -    SemanticUI
 -    Bulma CSS Framework
 -    DOM Manipulation
@@ -27,9 +26,7 @@
 -    Authentication From Scratch
 -    Cookies & Sessions
 -    Authorization
--    Common Security Issues - SQL Injection, XSS, etc.
--    Developer Best Practices
--    Deploying Apps
+-    Securing common Security Issues - SQL Injection, XSS, etc.
 -    Cloud Databases
 -    Image Upload and Storage
 -    Maps and Geocoding 
