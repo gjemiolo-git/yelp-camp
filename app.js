@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
@@ -27,9 +28,11 @@ const users = require('./routes/users');
 const User = require('./models/user');
 
 
+
 // DB
-mongoose.connect('mongodb://localhost:27017/yelp-camp');
-//mongoose.connect(`mongodb+srv://yelp-camp:${process.env.DB_PASSWORD}@yelp-camp.v2zba.mongodb.net/?retryWrites=true&w=majority&appName=yelp-camp`)
+//const dbUrl = 'mongodb://localhost:27017/yelp-camp'
+const dbUrl = `mongodb+srv://yelp-camp:${process.env.DB_PASSWORD}@yelp-camp.v2zba.mongodb.net/?retryWrites=true&w=majority&appName=yelp-camp`
+mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
@@ -47,12 +50,22 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
+
+const store = new MongoStore({
+    url: dbUrl,
+    secret: 'mysecret',
+    touchAfter: 24 * 60 * 60
+}).on('error', (e) => {
+    console.log('Session store error', e);
+})
+
 const sessionConfig = {
+    store,
+    name: 'session',
     secret: 'secretSessionPm',
     resave: false,
     saveUninitialized: true,
     cookie: {
-        name: 'session',
         httpOnly: true,
         //secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // one week
