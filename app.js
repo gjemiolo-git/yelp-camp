@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
@@ -26,8 +26,6 @@ const reviews = require('./routes/reviews');
 const users = require('./routes/users');
 
 const User = require('./models/user');
-
-
 
 // DB
 //const dbUrl = 'mongodb://localhost:27017/yelp-camp'
@@ -51,10 +49,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
 
-const store = new MongoStore({
-    url: dbUrl,
-    secret: 'mysecret',
-    touchAfter: 24 * 60 * 60
+// Sessions
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: secret
+    }
 }).on('error', (e) => {
     console.log('Session store error', e);
 })
@@ -62,7 +64,7 @@ const store = new MongoStore({
 const sessionConfig = {
     store,
     name: 'session',
-    secret: 'secretSessionPm',
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -74,7 +76,8 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig));
-app.use(flash());
+
+// Helmet
 app.use(helmet());
 
 const scriptSrcUrls = [
@@ -120,7 +123,7 @@ app.use(
     })
 );
 
-
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -142,7 +145,6 @@ app.use('/', users);
 app.get('/', (req, res) => {
     res.render('home');
 })
-
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page not found!', 404));
