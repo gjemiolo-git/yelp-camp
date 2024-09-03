@@ -29,6 +29,7 @@ const User = require('./models/user');
 
 // DB
 mongoose.connect('mongodb://localhost:27017/yelp-camp');
+//mongoose.connect(`mongodb+srv://yelp-camp:${process.env.DB_PASSWORD}@yelp-camp.v2zba.mongodb.net/?retryWrites=true&w=majority&appName=yelp-camp`)
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
@@ -115,7 +116,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-    console.log(req.query);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');

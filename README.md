@@ -32,8 +32,7 @@
 -    Deploying Apps
 -    Cloud Databases
 -    Image Upload and Storage
--    Maps and Geocoding
--    
+-    Maps and Geocoding 
 
 ## Acknowledgements
 
